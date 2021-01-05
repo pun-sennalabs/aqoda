@@ -20,6 +20,7 @@ function main() {
   const commands = getCommandsFromFileName(filename);
 
   const rooms = [];
+  var floorState = 0;
   const keycards = [];
   var bookings = [];
 
@@ -34,6 +35,7 @@ function main() {
             keycards.push(keycards.length + 1);
           }
         }
+        floorState = floor;
 
         console.log(
           `Hotel created with ${floor} floor(s), ${roomPerFloor} room(s) per floor.`
@@ -183,23 +185,23 @@ function main() {
           );
         });
 
-        if (roomsEmpty.length === 0) {
-          console.log(`Cannot book floor ${floor} for ${guestName}.`);
-        } else {
+        if (roomsEmpty.length === (rooms.length / floorState)) {
           let newKeycards = [];
           roomsEmpty.forEach(room => {
             var keycard = keycards.find(
-              keycard => !bookings.find(booking => booking.keycard === keycard)
+                keycard => !bookings.find(booking => booking.keycard === keycard)
             );
             bookings.push({ room, guestName, guestAge, keycard });
             newKeycards.push(keycard);
           });
 
           console.log(
-            `Room ${roomsEmpty.join(
-              ", "
-            )} are booked with keycard number ${newKeycards.join(", ")}`
+              `Room ${roomsEmpty.join(
+                  ", "
+              )} are booked with keycard number ${newKeycards.join(", ")}`
           );
+        } else {
+        console.log(`Cannot book floor ${floor} for ${guestName}.`);
         }
 
         return;
