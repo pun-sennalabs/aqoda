@@ -34,6 +34,13 @@ function main() {
       case 'book':
         const [room, guestName, guestAge] = command.params
 
+        if (!rooms.includes(room)) {
+          console.log(
+            `Cannot book room ${room} for ${guestName}, The room is not exists.`
+          )
+          return
+        }
+
         return
       default:
         return
