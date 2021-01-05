@@ -13,6 +13,7 @@ function main() {
 
   const rooms = []
   const keycards = []
+  const bookings = []
 
   commands.forEach((command) => {
     switch (command.name) {
