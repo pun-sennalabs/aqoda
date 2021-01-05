@@ -13,7 +13,7 @@ function main() {
 
   const rooms = []
   const keycards = []
-  const bookings = []
+  var bookings = []
 
   commands.forEach((command) => {
     switch (command.name) {
@@ -78,6 +78,8 @@ function main() {
           return
         }
 
+        bookings = bookings.filter((booking) => booking.keycard !== keycard)
+        console.log(`Room ${currentBooking.room} is checkout.`)
         return
       default:
         return
