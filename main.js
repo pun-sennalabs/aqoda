@@ -92,7 +92,17 @@ function main() {
         if (avariableRooms.length) {
           console.log(avariableRooms.join(', '))
         } else {
-          console.log('No avariable rooms')
+          console.log('No any avariable room.')
+        }
+
+        return
+
+      case 'list_guest':
+        if (bookings.length) {
+          const guests = bookings.map((booking) => booking.guestName)
+          console.log(guests.join(', '))
+        } else {
+          console.log('No any guest.')
         }
 
         return
