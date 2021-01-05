@@ -169,10 +169,40 @@ function main() {
         bookings = bookings.filter(
           booking => !roomCheckout.includes(booking.room)
         );
+
         console.log(`Room ${roomCheckout.join(", ")} are checkout.`);
 
         return;
 
+      case "book_by_floor":
+        var [floor, guestName, guestAge] = command.params;
+        const roomsEmpty = rooms.filter(room => {
+          return (
+            +room.toString()[0] === floor &&
+            !bookings.find(booking => booking.room === room)
+          );
+        });
+
+        if (roomsEmpty.length === 0) {
+          console.log(`Cannot book floor ${floor} for ${guestName}.`);
+        } else {
+          let newKeycards = [];
+          roomsEmpty.forEach(room => {
+            var keycard = keycards.find(
+              keycard => !bookings.find(booking => booking.keycard === keycard)
+            );
+            bookings.push({ room, guestName, guestAge, keycard });
+            newKeycards.push(keycard);
+          });
+
+          console.log(
+            `Room ${roomsEmpty.join(
+              ", "
+            )} are booked with keycard number ${newKeycards.join(", ")}`
+          );
+        }
+
+        return;
       default:
         return;
     }
