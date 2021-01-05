@@ -41,6 +41,15 @@ function main() {
           return
         }
 
+        const currentBooking = bookings.find((booking) => booking.room === room)
+
+        if (currentBooking) {
+          console.log(
+            `Cannot book room ${room} for ${guestName}, The room is currently booked by ${currentBooking.guestName}.`
+          )
+          return
+        }
+
         return
       default:
         return
