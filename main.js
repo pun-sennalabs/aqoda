@@ -22,7 +22,7 @@ function main() {
 
         for (let i = 1; i <= floor; i++) {
           for (let j = 1; j <= roomPerFloor; j++) {
-            rooms.push(`${i}${j.toString().padStart(2, '0')}`)
+            rooms.push(parseInt(`${i}${j.toString().padStart(2, '0')}`))
             keycards.push(keycards.length + 1)
           }
         }
@@ -30,6 +30,10 @@ function main() {
         console.log(
           `Hotel created with ${floor} floor(s), ${roomPerFloor} room(s) per floor.`
         )
+        return
+      case 'book':
+        const [room, guestName, guestAge] = command.params
+
         return
       default:
         return
