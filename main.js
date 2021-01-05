@@ -61,6 +61,10 @@ function main() {
         })
 
         return
+      case 'checkout':
+        const [keycard, guestName] = command.params
+
+        return
       default:
         return
     }
