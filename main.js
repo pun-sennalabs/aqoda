@@ -50,6 +50,16 @@ function main() {
           return
         }
 
+        bookings.push({
+          room,
+          guestName,
+          guestAge,
+          keycard: keycards.find(
+            (keycard) =>
+              !bookings.find((booking) => booking.keycard === keycard)
+          )
+        })
+
         return
       default:
         return
