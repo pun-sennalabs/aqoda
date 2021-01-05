@@ -107,6 +107,21 @@ function main() {
 
         return
 
+      case 'list_guest_by_age':
+        var [operator, age] = command.params
+        const guestBookings = bookings.filter((booking) =>
+          eval(`${booking.guestAge} ${operator} ${age}`)
+        )
+
+        if (guestBookings.length) {
+          const guests = guestBookings.map((booking) => booking.guestName)
+          console.log(guests.join(', '))
+        } else {
+          console.log(`No any guest that age ${operator} ${age}.`)
+        }
+
+        return
+
       default:
         return
     }
