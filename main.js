@@ -31,6 +31,7 @@ function main() {
           `Hotel created with ${floor} floor(s), ${roomPerFloor} room(s) per floor.`
         )
         return
+
       case 'book':
         var [room, guestName, guestAge] = command.params
 
@@ -59,6 +60,7 @@ function main() {
           `Room ${room} is booked by PeterParker with keycard number ${keycard}.`
         )
         return
+
       case 'checkout':
         var [keycard, guestName] = command.params
 
@@ -81,6 +83,20 @@ function main() {
         bookings = bookings.filter((booking) => booking.keycard !== keycard)
         console.log(`Room ${currentBooking.room} is checkout.`)
         return
+
+      case 'list_available_rooms':
+        const avariableRooms = rooms.filter(
+          (room) => !bookings.find((booking) => booking.room === room)
+        )
+
+        if (avariableRooms.length) {
+          console.log(avariableRooms.join(', '))
+        } else {
+          console.log('No avariable rooms')
+        }
+
+        return
+
       default:
         return
     }
