@@ -7,6 +7,14 @@ class Command {
   }
 }
 
+function getRoomDetail(room) {
+  const roomString = room.toString()
+  return {
+    floor: parseInt(roomString[0]),
+    runningNumber: parseInt(roomString.split(1, 3))
+  }
+}
+
 function main() {
   const filename = 'input.txt'
   const commands = getCommandsFromFileName(filename)
@@ -109,7 +117,7 @@ function main() {
 
       case 'list_guest_by_age':
         var [operator, age] = command.params
-        const guestBookings = bookings.filter((booking) =>
+        var guestBookings = bookings.filter((booking) =>
           eval(`${booking.guestAge} ${operator} ${age}`)
         )
 
@@ -131,6 +139,21 @@ function main() {
           console.log(currentBooking.guestName)
         } else {
           console.log(`No one book ${room}.`)
+        }
+
+        return
+
+      case 'list_guest_by_floor':
+        var [floor] = command.params
+        var guestBookings = bookings.filter(
+          (booking) => getRoomDetail(booking.room).floor === floor
+        )
+
+        if (guestBookings.length) {
+          const guests = guestBookings.map((booking) => booking.guestName)
+          console.log(guests.join(', '))
+        } else {
+          console.log(`No any guest in floor ${floor}.`)
         }
 
         return
