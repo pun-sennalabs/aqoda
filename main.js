@@ -18,7 +18,7 @@ function main() {
   commands.forEach((command) => {
     switch (command.name) {
       case 'create_hotel':
-        const [floor, roomPerFloor] = command.params
+        var [floor, roomPerFloor] = command.params
 
         for (let i = 1; i <= floor; i++) {
           for (let j = 1; j <= roomPerFloor; j++) {
@@ -32,7 +32,7 @@ function main() {
         )
         return
       case 'book':
-        const [room, guestName, guestAge] = command.params
+        var [room, guestName, guestAge] = command.params
 
         if (!rooms.includes(room)) {
           console.log(
@@ -41,7 +41,7 @@ function main() {
           return
         }
 
-        const currentBooking = bookings.find((booking) => booking.room === room)
+        var currentBooking = bookings.find((booking) => booking.room === room)
 
         if (currentBooking) {
           console.log(
@@ -50,24 +50,33 @@ function main() {
           return
         }
 
-        bookings.push({
-          room,
-          guestName,
-          guestAge,
-          keycard: keycards.find(
-            (keycard) =>
-              !bookings.find((booking) => booking.keycard === keycard)
-          )
-        })
+        var keycard = keycards.find(
+          (keycard) => !bookings.find((booking) => booking.keycard === keycard)
+        )
+        bookings.push({ room, guestName, guestAge, keycard })
 
+        console.log(
+          `Room ${room} is booked by PeterParker with keycard number ${keycard}.`
+        )
         return
       case 'checkout':
-        const [keycard, guestName] = command.params
+        var [keycard, guestName] = command.params
 
-        const currentBooking = bookings.find(
-          (booking) =>
-            booking.keycard === keycard && booking.guestName === guestName
+        var currentBooking = bookings.find(
+          (booking) => booking.keycard === keycard
         )
+
+        if (!currentBooking) {
+          console.log(`No one using keycard number ${currentBooking.keycard}.`)
+          return
+        }
+
+        if (currentBooking.guestName !== guestName) {
+          console.log(
+            `Only ${currentBooking.guestName} can checkout with keycard number ${currentBooking.keycard}.`
+          )
+          return
+        }
 
         return
       default:
