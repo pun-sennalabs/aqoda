@@ -122,6 +122,19 @@ function main() {
 
         return
 
+      case 'get_guest_in_room':
+        var [room] = command.params
+
+        var currentBooking = bookings.find((booking) => booking.room === room)
+
+        if (currentBooking) {
+          console.log(currentBooking.guestName)
+        } else {
+          console.log(`No one book ${room}.`)
+        }
+
+        return
+
       default:
         return
     }
