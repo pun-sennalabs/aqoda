@@ -64,6 +64,11 @@ function main() {
       case 'checkout':
         const [keycard, guestName] = command.params
 
+        const currentBooking = bookings.find(
+          (booking) =>
+            booking.keycard === keycard && booking.guestName === guestName
+        )
+
         return
       default:
         return
