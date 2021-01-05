@@ -12,6 +12,7 @@ function main() {
   const commands = getCommandsFromFileName(filename)
 
   const rooms = []
+  const keycards = []
 
   commands.forEach((command) => {
     switch (command.name) {
@@ -21,6 +22,7 @@ function main() {
         for (let i = 1; i <= floor; i++) {
           for (let j = 1; j <= roomPerFloor; j++) {
             rooms.push(`${i}${j.toString().padStart(2, '0')}`)
+            keycards.push(keycards.length + 1)
           }
         }
 
